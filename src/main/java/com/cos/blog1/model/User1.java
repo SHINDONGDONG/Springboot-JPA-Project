@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ import javax.xml.ws.BindingType;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor //빈생성자
 @AllArgsConstructor //전체 생성자
 @Builder
+@DynamicInsert //인서트시 널인  값을 제외시켜준다.
 public class User1 {
 
 	@Id//primary key 
@@ -37,8 +41,9 @@ public class User1 {
 	@Column(nullable = false,length = 50)
 	private String email; //이메일
 	
-	@ColumnDefault("'user1'") // '' 조
-	private String role; //Enum 으로 타입을 선언하여 실수못하게 막아준다.
+//	@ColumnDefault("'user1'") // '' 조
+	@Enumerated(EnumType.STRING) //Enum 타입이 String인걸 알려주는 어노테이션을 붙여줘야함.
+	private RoleType role; //Enum 으로 타입을 선언하여 실수못하게 막아준다.
 	
 	@CreationTimestamp //시간이 자동으로 입력된다.
 	private Timestamp createDate; //sql이 가지고있는 Timestamp를 사용
