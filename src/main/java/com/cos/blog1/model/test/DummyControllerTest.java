@@ -3,14 +3,18 @@ package com.cos.blog1.model.test;
 import java.util.List;
 import java.util.function.Supplier;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog1.model.RoleType;
@@ -84,6 +88,24 @@ public class DummyControllerTest {
 		Page<User1> pagingUser=  userRepository1.findAll(pageable);
 		List<User1> users = pagingUser.getContent();
 		return users;
+	}
+	
+	@PutMapping("/dummy/user/{id}")
+	@Transactional
+	public User1 updateUser(@PathVariable int id,@RequestBody User1 requestUser1) {//json데이터를 받기 위해선 RequestBody 어노테이션 있어야함
+			//json데이터 요청 ->java object (message converter의 jackson라이브러리가 변환해서 받아줌)
+		System.out.println("id : "+id);
+		System.out.println("password : "+requestUser1.getPassword());
+		System.out.println("email : "+requestUser1.getEmail());
+		
+		User1 user1 = userRepository1.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("수정에 실패하였습니다.");
+		});
+		user1.setPassword(requestUser1.getPassword());
+		user1.setEmail(requestUser1.getEmail());
+
+		//userRepository1.save(user1);
+		return null;
 	}
 	
 }
