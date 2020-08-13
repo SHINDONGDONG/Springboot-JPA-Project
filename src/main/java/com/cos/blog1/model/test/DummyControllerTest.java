@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -105,7 +106,17 @@ public class DummyControllerTest {
 		user1.setEmail(requestUser1.getEmail());
 
 		//userRepository1.save(user1);
-		return null;
+		return user1;
+	}
+	
+	@DeleteMapping("/dummy/user/{id}")
+	public String delete(@PathVariable int id) {
+		try {
+			userRepository1.deleteById(id);
+		}catch(Exception e){
+			return "삭제를 실패 하였습니다."+e.getMessage();
+		}
+		return "삭제가 완료 되었습니다. : " + id;
 	}
 	
 }
