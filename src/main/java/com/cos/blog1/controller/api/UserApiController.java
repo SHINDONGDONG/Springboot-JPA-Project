@@ -16,8 +16,6 @@ import com.cos.blog1.service.UserService;
 @RestController
 public class UserApiController {
 
-	@Autowired
-	private HttpSession session;
 	
 	@Autowired
 	private UserService userService;
@@ -31,13 +29,13 @@ public class UserApiController {
 	}
 	
 	//스프링 시큐리티를 이용하여 로그인하기. 할거임.
-	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User1 user1){
-		System.out.println("UserApiController의 login접속됨");
-		User1 principal = userService.login(user1); //principal 접근주체
-		if(principal != null) {
-			session.setAttribute("principal", principal);
-		}
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
-	}
+	/*
+	 * @PostMapping("/api/user/login") public ResponseDto<Integer>
+	 * login(@RequestBody User1 user1, HttpSession session){
+	 * System.out.println("UserApiController의 login접속됨"); User1 principal =
+	 * userService.login(user1); //principal 접근주체 if(principal != null) {
+	 * session.setAttribute("principal", principal); } return new
+	 * ResponseDto<Integer>(HttpStatus.OK.value(),1); }
+	 */
+	
 }
