@@ -3,7 +3,28 @@
 		 $("#btn-save").on("click",()=>{
 			this.save();
 		 });
+		 $("#btn-login").on("click",()=>{
+			this.login();
+		 });
 	 },
+	 login:function(){
+		let data={
+			username :$("#username").val(),
+			password :$("#password").val()
+		}
+		$.ajax({
+			type:"POST",
+			url:"/api/user/login",
+			data:JSON.stringify(data),
+			contentType:"application/json; charset=utf-8"
+		}).done(function(){
+			alert("로그인이 완료되었습니다.");
+			location.href="/";
+		}).fail(function(error){
+			alert(json.stringify(error));
+		});
+	 },
+
 	 save:function(){
 		//alert("회원가입입니다.");
 		let data = {
@@ -16,17 +37,19 @@
 		//ajax호출시 dafault가 비동기 호출
 		$.ajax({
 			type:"POST",
-			url:"/blog1/api/user",
+			url:"/api/user",
 			data:JSON.stringify(data),
 			contentType:"application/json; charset=utf-8"//body타입이 어떤 mime타입인
 			// dataType:"json"
 		}).done(function(resp){
 			alert("회원가입이 완료되었다");
-			location.href="/blog1";
+			location.href="/";
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); //ajax통신을 이요해 3개의 데이터를 json으로 변경하여 insert요
 	 }
+
+
  }
 
  index.init();

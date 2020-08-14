@@ -1,5 +1,7 @@
 package com.cos.blog1.controller.api;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,9 @@ import com.cos.blog1.service.UserService;
 public class UserApiController {
 
 	@Autowired
+	private HttpSession session;
+	
+	@Autowired
 	private UserService userService;
 	
 	@PostMapping("/api/user")
@@ -25,5 +30,14 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
 	
-	
+	//스프링 시큐리티를 이용하여 로그인하기. 할거임.
+	@PostMapping("/api/user/login")
+	public ResponseDto<Integer> login(@RequestBody User1 user1){
+		System.out.println("UserApiController의 login접속됨");
+		User1 principal = userService.login(user1); //principal 접근주체
+		if(principal != null) {
+			session.setAttribute("principal", principal);
+		}
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	}
 }

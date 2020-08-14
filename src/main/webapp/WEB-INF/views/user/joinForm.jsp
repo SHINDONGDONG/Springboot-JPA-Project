@@ -14,7 +14,7 @@
 		<button id="btn-save" class="btn btn-primary">회원가입</button>
 	</form>
 </div>
-<script src="/blog1/js/user.js"></script> <!-- / 입력이면 바로statc을 찾아감. -->
+<script src="/js/user.js"></script> <!-- / 입력이면 바로statc을 찾아감. -->
 <%@ include file="../layout/footer.jsp"%>
 
 
