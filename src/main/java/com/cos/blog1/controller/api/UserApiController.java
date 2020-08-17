@@ -20,13 +20,12 @@ public class UserApiController {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save (@RequestBody User1 user1) {
 		System.out.println("UserApiController save 호출");
 		userService.save(user1);
-		
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	 	return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
 	
 	//스프링 시큐리티를 이용하여 로그인하기. 할거임.

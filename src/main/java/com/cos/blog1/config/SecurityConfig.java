@@ -26,7 +26,7 @@ protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable() //scrf 토큰 비활성화 (테스트시 걸어두는게 좋음)
 			.authorizeRequests()//요청에대한 인가가 들어오면 
-				.antMatchers("/","/auth/**","js/**","css/**","image/**") //이하의 주소로 들어오면 
+				.antMatchers("/","/auth/**","/js/**","/css/**","/image/**") //이하의 주소로 들어오면 
 				.permitAll()
 				.anyRequest()//이게아닌 다른 모든요청은
 				.authenticated()//인증이 되어야해 

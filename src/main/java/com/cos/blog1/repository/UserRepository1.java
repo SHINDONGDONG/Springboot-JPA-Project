@@ -10,9 +10,6 @@ import com.cos.blog1.model.User1;
 //@repository 생략가능
 public interface UserRepository1  extends JpaRepository<User1, Integer>{ //이 테이블을 관리하는 것은 user1이고 프라이머리키는 integer이다 라는
 	
-
-	
-	
 }
 
 

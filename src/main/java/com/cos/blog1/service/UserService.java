@@ -16,7 +16,7 @@ public class UserService {
 	private UserRepository1 userRepository1;
 
 	@Autowired
-	BCryptPasswordEncoder encoder;
+	private BCryptPasswordEncoder encoder;
 	
 	@Transactional
 	public  void save(User1 user1) {

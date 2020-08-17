@@ -25,7 +25,7 @@
 		});
 	 },
  */
-	 save:function(){
+	 save: function(){
 		//alert("회원가입입니다.");
 		let data = {
 			username:$("#username").val(), //joinForm 에서 받은 네임,패스워드,이메일을 변수에 넣는다.
