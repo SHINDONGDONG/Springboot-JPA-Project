@@ -3,11 +3,11 @@
 		 $("#btn-save").on("click",()=>{
 			this.save();
 		 });
-		 $("#btn-login").on("click",()=>{
+	/* 	 $("#btn-login").on("click",()=>{
 			this.login();
-		 });
+		 }); */
 	 },
-	 login:function(){
+	 /* login:function(){
 		let data={
 			username :$("#username").val(),
 			password :$("#password").val()
@@ -24,7 +24,7 @@
 			alert(json.stringify(error));
 		});
 	 },
-
+ */
 	 save:function(){
 		//alert("회원가입입니다.");
 		let data = {
@@ -37,7 +37,7 @@
 		//ajax호출시 dafault가 비동기 호출
 		$.ajax({
 			type:"POST",
-			url:"/api/user",
+			url:"/auth/joinProc",
 			data:JSON.stringify(data),
 			contentType:"application/json; charset=utf-8"//body타입이 어떤 mime타입인
 			// dataType:"json"
