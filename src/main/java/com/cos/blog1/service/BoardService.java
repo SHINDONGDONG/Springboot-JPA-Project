@@ -1,6 +1,10 @@
 package com.cos.blog1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,4 +29,7 @@ public class BoardService {
 		boardRepository1.save(board1);
 	}
 	
+	public Page<Board1> list (Pageable pageable){
+		return boardRepository1.findAll(pageable);
+	}
 }
