@@ -22,7 +22,6 @@ public class BoardService {
 	private BoardRepository1 boardRepository1;
 
 	
-	@Transactional(readOnly = true)
 	public  void save(Board1 board1,User1 user1) { //title ,content
 		board1.setCount(0);
 		board1.setUser1(user1);
@@ -44,5 +43,17 @@ public class BoardService {
 	@Transactional
 	public void delete(int id) {
 		boardRepository1.deleteById(id);
+	}
+	
+	@Transactional
+	public void update(int id,Board1 requestboard) {
+		Board1 board = boardRepository1.findById(id)
+				.orElseThrow(()->{
+			return new IllegalArgumentException("글찾기 실패.");
+		});//영속화완료
+		board.setTitle(requestboard.getTitle());
+		board.setContent(requestboard.getContent());
+		//해당함수가 종료시 서비스단에서 종료돌때 트랜잭션이 종료된다.
+		//이때 더티체킹이 일어남 (자동업데이트)
 	}
 }

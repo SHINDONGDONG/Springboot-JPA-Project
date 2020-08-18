@@ -29,7 +29,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false #false일 경우 jpa의 넘버링 전략을 따라가지 않음 즉  auto_increment (mysql)의 넘버링전략을 따라간다.
-    show-sql: true
+#    show-sql: true
     properties:
       hibernate.format_sql: true
 

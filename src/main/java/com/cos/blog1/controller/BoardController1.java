@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cos.blog1.config.auth.PrincipalDetail;
 import com.cos.blog1.service.BoardService;
@@ -39,6 +40,12 @@ public class BoardController1 {
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
 		return "board/saveForm";
+	}
+	
+	@GetMapping("/board/{id}/updateForm")
+	public String updateForm(@PathVariable int id,Model model) {
+		model.addAttribute("board",boardService.detail(id));
+		return "board/updateForm";
 	}
 	
 	
