@@ -1,5 +1,7 @@
 package com.cos.blog1.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cos.blog1.model.User1;
@@ -9,7 +11,9 @@ import com.cos.blog1.model.User1;
 //자동으로 BEAN에 등록된다.
 //@repository 생략가능
 public interface UserRepository1  extends JpaRepository<User1, Integer>{ //이 테이블을 관리하는 것은 user1이고 프라이머리키는 integer이다 라는
-	
+
+	//SELECT * FROM USER1 WHERE username=1?;
+	Optional<User1> findByUsername(String username);
 }
 
 

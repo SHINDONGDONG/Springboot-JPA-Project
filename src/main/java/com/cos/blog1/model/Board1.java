@@ -1,15 +1,18 @@
 package com.cos.blog1.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,11 +39,14 @@ public class Board1 {
 	@Lob //대용량 데이터를 사용할때
 	private String content; //섬머노트 라이브러리 디자인이 되어 들어감 (html태그가 들어감)
 	
-	@ColumnDefault("0")
+//	@ColumnDefault("0")
 	private int count; //조회수
 	
 	@CreationTimestamp
 	private Timestamp createDate;
+	
+	@OneToMany(mappedBy = "board1",fetch = FetchType.EAGER) //mappedby 연관관계의 주인이아니다.
+	private List<Reply1> reply1;
 	
 	@ManyToOne //Many(board) / one(User) -> 한명의 유저는 여러개의 게시글을 쓸 수 있다.
 	@JoinColumn(name = "userid")
