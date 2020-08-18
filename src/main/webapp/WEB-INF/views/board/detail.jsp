@@ -3,9 +3,15 @@
 <div class="container">
 
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+	<c:if test="${board.user1.id == principal.user1.id}">
 	<button id="btn-update" class="btn btn-warning">수정</button>
 	<button id="btn-delete" class="btn btn-danger">삭제</button>
-	<br />
+	</c:if>
+	<br /><br />
+	<div>
+		글 번호 : <span id="id"><i>${board.id} </i></span>
+		작성자: <span><i>${board.user1.username} </i></span>
+	</div>	
 	<br />
 		<div>
 			<label for="title">Title</label> 

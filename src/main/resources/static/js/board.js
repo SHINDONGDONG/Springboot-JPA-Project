@@ -1,30 +1,46 @@
- let index = {
-	 init: function(){
-		 $("#btn-save").on("click",()=>{
+let index = {
+	init: function () {
+		$("#btn-save").on("click", () => {
 			this.save();
-		 });
-	 },
-	 save: function(){
+		});
+		$("#btn-delete").on("click", () => {
+			this.deleteById();
+		});
+	},
+	save: function () {
 		//alert("회원가입입니다.");
 		let data = {
-			title:$("#title").val(),
-			content:$("#content").val()
+			title: $("#title").val(),
+			content: $("#content").val()
 		}
 		$.ajax({
-			type:"POST",
-			url:"/api/board",
-			data:JSON.stringify(data),
-			contentType:"application/json; charset=utf-8"//body타입이 어떤 mime타입인
+			type: "POST",
+			url: "/api/board",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8"//body타입이 어떤 mime타입인
 			// dataType:"json"
-		}).done(function(resp){
+		}).done(function (resp) {
 			alert("글작성이 완료 되었습니다.");
-			location.href="/";
-		}).fail(function(error){
+			location.href = "/";
+		}).fail(function (error) {
 			alert(JSON.stringify(error));
-		}); 
-	 }
+		});
+	},
+	 	deleteById: function () {
+		var id = $("#id").text();
+
+		$.ajax({
+			type: "DELETE",
+			url: "/api/board/" + id,
+		}).done(function (resp) {
+			alert("삭제 완료 되었습니다.");
+			location.href = "/";
+		}).fail(function (error) {
+			alert(JSON.stringify(error));
+		});
+	}
 
 
- }
+}
 
- index.init();
+index.init();
