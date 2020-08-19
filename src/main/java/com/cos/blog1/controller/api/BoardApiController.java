@@ -29,23 +29,23 @@ public class BoardApiController {
 	BoardService boardService;
 
 	@PostMapping("/api/board")
-	public ResponseDto<Integer> save (@RequestBody Board1 board1,@AuthenticationPrincipal PrincipalDetail principal) {
-		boardService.save(board1,principal.getUser1());
-	 	return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	public ResponseDto<Integer> save(@RequestBody Board1 board1, @AuthenticationPrincipal PrincipalDetail principal) {
+		boardService.save(board1, principal.getUser1());
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@DeleteMapping("/api/board/{id}")
-	public ResponseDto<Integer> deleteById(@PathVariable int id){
+	public ResponseDto<Integer> deleteById(@PathVariable int id) {
 		boardService.delete(id);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@PutMapping("/api/board/{id}")
-	public ResponseDto<Integer> update(@PathVariable int id,@RequestBody Board1 board){
+	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board1 board) {
 		System.out.println("boardapiput id: " + id);
 		System.out.println("boardapiput board: " + board.getTitle());
 		System.out.println("boardapiput board: " + board.getContent());
-		boardService.update(id,board);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+		boardService.update(id, board);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 }
