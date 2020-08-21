@@ -28,11 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+	
 	
 	//시큐리티가 대신 로그인해주는데 password를 가로채는데 해당 password가 뭘로 해쉬가되어서 회원가입이 되었는지 알아야 같은해쉬로 암호화해서 
 	//db에있는 해쉬랑 비교를 할 수 있다
@@ -56,6 +58,9 @@ protected void configure(HttpSecurity http) throws Exception {
 				.loginProcessingUrl("/auth/loginProc")//스프링 시큐리티가 해당주소로 요청오는 로그인을 가로챈다(대신로그인해줌).
 				.defaultSuccessUrl("/");
 	}
+
+
+
 
 }
 

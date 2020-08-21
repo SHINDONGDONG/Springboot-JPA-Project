@@ -1,10 +1,6 @@
 package com.cos.blog1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,14 +36,13 @@ public class UserService {
 		User1 persistance = userRepository1.findById(user1.getId()).orElseThrow(()->{
 			return new IllegalArgumentException("회원찾기 실패");
 		});
-		String rawPassword = user1.getPassword();
-		String encPassword =encoder.encode(rawPassword);
-		persistance.setPassword(encPassword);
-		persistance.setEmail(user1.getEmail());
+			String rawPassword = user1.getPassword();
+			String encPassword =encoder.encode(rawPassword);
+			persistance.setPassword(encPassword);
+			persistance.setEmail(user1.getEmail());
+			
 		//회원수정 함수 종료 = 서비스종료 = 트랜잭션 종료(자동커밋) = 커밋이 자동으로된다.
 		//영속화된 persistanc 객체의 변화가 감지되면 더티체킹이 되어 update문을 날려준다.
-		
-		userRepository1.save(persistance);
 	}
 //	@Transactional(readOnly = true)//SELECT 시작할때 트랜잭션 시작 서비스 종료시에 트랜잭션 종료.(정합성)
 //	public  User1 login(User1 user1) {

@@ -1,6 +1,5 @@
 package com.cos.blog1.config.auth;
 
-import java.nio.file.attribute.UserPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,5 +26,6 @@ public class PrincipalDetailService implements UserDetailsService {
 					return new UsernameNotFoundException("해당사용자를 찾을 수 없습니다."+username);
 				});
 		return new PrincipalDetail(principal); //시큐리티 세션에 유저정보가 저장됨.
+		
 	}
 }
