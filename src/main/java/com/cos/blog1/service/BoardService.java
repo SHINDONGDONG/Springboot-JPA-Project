@@ -67,20 +67,24 @@ public class BoardService {
 	
 	@Transactional
 	public void replySave(ReplySaveRequestDto replySaveRequestDto) {
-		User1 user1 = userRepository1.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
-			return new IllegalArgumentException("댓글작성 실패 : 유저 id를 찾을 수 없습니다.");
-		});//영속화 완료
-
-		Board1 board1 = boardRepository1.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
-			return new IllegalArgumentException("댓글작성 실패 : 게시글 id를 찾을 수 없습니다.");
-		});//영속화 완료
+//		User1 user1 = userRepository1.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+//			return new IllegalArgumentException("댓글작성 실패 : 유저 id를 찾을 수 없습니다.");
+//		});//영속화 완료
+//
+//		Board1 board1 = boardRepository1.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
+//			return new IllegalArgumentException("댓글작성 실패 : 게시글 id를 찾을 수 없습니다.");
+//		});//영속화 완료
 		
-		Reply1 reply = Reply1.builder()
-				.user1(user1)
-				.board1(board1)
-				.content(replySaveRequestDto.getContent())
-				.build();
-		replyRepository.save(reply);
+//		Reply1 reply = Reply1.builder()
+//				.user1(user1)
+//				.board1(board1)
+//				.content(replySaveRequestDto.getContent())
+//				.build();
+		int result = replyRepository.mSave(replySaveRequestDto.getUserId(),replySaveRequestDto.getBoardId(),replySaveRequestDto.getContent());
+		System.out.println("boardservice" + result);
+	}
+	public void replyDelete(int replyId) {
+		replyRepository.deleteById(replyId);
 	}
 	
 }

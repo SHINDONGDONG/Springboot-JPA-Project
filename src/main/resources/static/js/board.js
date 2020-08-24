@@ -52,14 +52,24 @@ let index = {
 			alert(JSON.stringify(error));
 		});
 	},
+	replyDelete: function (boardId,replyId) {
+		$.ajax({
+			type: "DELETE",
+			url: `/api/board/${boardId}/reply/${replyId}`,
+			// dataType:"json"
+		}).done(function (resp) {
+			alert("댓글삭제 성공 되었습니다.");
+			location.href = `/board/${boardId}`;
+		}).fail(function (error) {
+			alert(JSON.stringify(error));
+		});
+	},
 	 	update: function () {
 		let id = $("#id").val();
 		let data = {
 			title :$("#title").val(),
 			content : $("#content").val()
 		}
-		console.log(id);
-		console.log(data);
 		$.ajax({
 			type: "PUT",
 			url: "/api/board/"+id,
@@ -74,11 +84,12 @@ let index = {
 		});
 	},
 		deleteById: function () {
-		let id = $("#id").val();
+		let id = $("#id").text();
 
 		$.ajax({
 			type: "DELETE",
-			url: "/api/board/" + id,
+			url: "/api/board/" + id
+			
 		}).done(function (resp) {
 			alert("삭제 완료 되었습니다.");
 			location.href = "/";

@@ -46,8 +46,12 @@ let index = {
 			contentType: "application/json; charset=utf-8"//body타입이 어떤 mime타입인
 			// dataType:"json"
 		}).done(function (resp) {
-			alert("회원가입이 완료되었다");
-			location.href = "/";
+			if(resp.status === 500){
+				alert("회원가입이 실패하였습니다.");
+			}else{
+				alert("회원가입이 완료되었다");
+				location.href = "/";
+			}
 		}).fail(function (error) {
 			alert(JSON.stringify(error));
 		}); //ajax통신을 이요해 3개의 데이터를 json으로 변경하여 insert요

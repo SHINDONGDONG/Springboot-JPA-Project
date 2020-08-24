@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp"%>
+<style>
+#footer {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:50px;   
+}
+</style>
 <div class="container">
 
 	<c:forEach var="board" items="${boards.content}">
@@ -29,7 +37,9 @@
 		</c:choose>
  	</ul>
 </div>
+<div id="footer">
 <%@ include file="layout/footer.jsp"%>
+</div>
 
 
 

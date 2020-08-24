@@ -29,7 +29,7 @@ public class BoardController1 {
 	}
 	
 	@GetMapping({"/",""}) //컨트롤러에서 세션을 어떻게 찾나.?
-	public String index(Model model,@PageableDefault(size = 3,sort = "id",direction = Sort.Direction.DESC)Pageable pageable) {
+	public String index(Model model,@PageableDefault(size = 5,sort = "id",direction = Sort.Direction.DESC)Pageable pageable) {
 //		 prefix: /WEB-INF/views/
 //	     suffix: .jsp
 //		우리가 설정 해놓았던 yml파일이 return해줄때 prefix와 suffix를 함께 붙여준다.
