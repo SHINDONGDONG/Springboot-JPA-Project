@@ -1,5 +1,7 @@
 package com.cos.blog1.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,10 +38,14 @@ public class UserService {
 		User1 persistance = userRepository1.findById(user1.getId()).orElseThrow(()->{
 			return new IllegalArgumentException("회원찾기 실패");
 		});
-			String rawPassword = user1.getPassword();
-			String encPassword =encoder.encode(rawPassword);
-			persistance.setPassword(encPassword);
-			persistance.setEmail(user1.getEmail());
+		
+			//validate 체크　oauth필드값이 없으면 수정가능
+			if(persistance.getOauth() ==null || persistance.getOauth().equals("")) {
+				String rawPassword = user1.getPassword();
+				String encPassword =encoder.encode(rawPassword);
+				persistance.setPassword(encPassword);
+				persistance.setEmail(user1.getEmail());
+			}
 			
 		//회원수정 함수 종료 = 서비스종료 = 트랜잭션 종료(자동커밋) = 커밋이 자동으로된다.
 		//영속화된 persistanc 객체의 변화가 감지되면 더티체킹이 되어 update문을 날려준다.
@@ -48,5 +54,13 @@ public class UserService {
 //	public  User1 login(User1 user1) {
 //		return userRepository1.findByUsernameAndPassword(user1.getUsername(),user1.getPassword());
 //	}
+	
+	@Transactional(readOnly = true)
+	public User1 find(String username) {
+		User1 user1 = userRepository1.findByUsername(username).orElseGet(()->{
+			return new User1();
+		});
+		return user1;
+	}
 	
 }

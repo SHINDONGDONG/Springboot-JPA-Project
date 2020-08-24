@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog1.model.Board1;
+import com.cos.blog1.model.Reply1;
 import com.cos.blog1.model.RoleType;
 import com.cos.blog1.model.User1;
 import com.cos.blog1.repository.BoardRepository1;
+import com.cos.blog1.repository.ReplyRepository;
 import com.cos.blog1.repository.UserRepository1;
 
 @Service //컴포넌트 스캐너를 통해서 빈에 등록해준다.
@@ -21,6 +23,8 @@ public class BoardService {
 	@Autowired
 	private BoardRepository1 boardRepository1;
 
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	public  void save(Board1 board1,User1 user1) { //title ,content
 		board1.setCount(0);
@@ -56,4 +60,16 @@ public class BoardService {
 		//해당함수가 종료시 서비스단에서 종료돌때 트랜잭션이 종료된다.
 		//이때 더티체킹이 일어남 (자동업데이트)
 	}
+	
+	@Transactional
+	public void replySave(User1 user1,int boardId,Reply1 requestReply) {
+		Board1 board1 = boardRepository1.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("댓글작성 실패 : 게시글 id를 찾을 수 없습니다.");
+		});//영속화 완료
+		requestReply.setUser1(user1);
+		requestReply.setBoard1(board1);
+		
+		replyRepository.save(requestReply);
+	}
+	
 }

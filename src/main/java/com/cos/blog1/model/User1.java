@@ -32,7 +32,7 @@ public class User1 {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)//프로젝트에서 연결된 DB의 넘버링 전략을 따라간다는 뜻.
 	private int id; //오라클 : 시퀀스 , mysql : auto_increment
 	
-	@Column(nullable = false,length = 30,unique = true)
+	@Column(nullable = false,length = 100,unique = true)
 	private String username; //아이디 
 	
 	@Column(nullable = false,length = 100) //해쉬 비밀번호 암호화
@@ -44,6 +44,8 @@ public class User1 {
 //	@ColumnDefault("'user1'") // '' 조
 	@Enumerated(EnumType.STRING) //Enum 타입이 String인걸 알려주는 어노테이션을 붙여줘야함.
 	private RoleType role; //Enum 으로 타입을 선언하여 실수못하게 막아준다.
+	
+	private String oauth; //kakao,google
 	
 	@CreationTimestamp //시간이 자동으로 입력된다.
 	private Timestamp createDate; //sql이 가지고있는 Timestamp를 사용

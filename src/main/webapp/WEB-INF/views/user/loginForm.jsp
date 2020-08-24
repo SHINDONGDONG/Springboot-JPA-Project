@@ -15,7 +15,7 @@
 	</form>
 </div>
 <!-- <script src="/js/user.js"></script> / 입력이면 바로statc을 찾아감. -->
-<%@ include file="../layout/footer.jsp"%>
+<%@ include file="../layout/footer.jsp"%> 
 
 
 

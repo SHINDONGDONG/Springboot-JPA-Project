@@ -13,9 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,7 +50,9 @@ public class Board1 {
 	private Timestamp createDate;
 	
 	@OneToMany(mappedBy = "board1",fetch = FetchType.EAGER) //mappedby 연관관계의 주인이아니다.
-	private List<Reply1> reply1;
+	@JsonIgnoreProperties({"board1"})
+	@OrderBy("id desc")
+	private List<Reply1> replys1;
 	
 	@ManyToOne //Many(board) / one(User) -> 한명의 유저는 여러개의 게시글을 쓸 수 있다.
 	@JoinColumn(name = "userid")
