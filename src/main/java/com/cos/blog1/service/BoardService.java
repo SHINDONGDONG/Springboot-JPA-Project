@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog1.dto.ReplySaveRequestDto;
 import com.cos.blog1.model.Board1;
 import com.cos.blog1.model.Reply1;
 import com.cos.blog1.model.RoleType;
@@ -22,6 +23,9 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository1 boardRepository1;
+
+	@Autowired
+	private UserRepository1 userRepository1;
 
 	@Autowired
 	private ReplyRepository replyRepository;
@@ -62,14 +66,21 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void replySave(User1 user1,int boardId,Reply1 requestReply) {
-		Board1 board1 = boardRepository1.findById(boardId).orElseThrow(()->{
+	public void replySave(ReplySaveRequestDto replySaveRequestDto) {
+		User1 user1 = userRepository1.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("댓글작성 실패 : 유저 id를 찾을 수 없습니다.");
+		});//영속화 완료
+
+		Board1 board1 = boardRepository1.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
 			return new IllegalArgumentException("댓글작성 실패 : 게시글 id를 찾을 수 없습니다.");
 		});//영속화 완료
-		requestReply.setUser1(user1);
-		requestReply.setBoard1(board1);
 		
-		replyRepository.save(requestReply);
+		Reply1 reply = Reply1.builder()
+				.user1(user1)
+				.board1(board1)
+				.content(replySaveRequestDto.getContent())
+				.build();
+		replyRepository.save(reply);
 	}
 	
 }
